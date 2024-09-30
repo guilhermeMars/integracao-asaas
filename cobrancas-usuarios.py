@@ -18,7 +18,7 @@ pag = 0
 limit = 10
 while True :
 
-    url_pag = f"{url_cobranca}?offset={pag}?limit={limit}"
+    url_pag = f"{url_cobranca}?offset={pag}?limit={limit}&dateCreated[ge]=2022-06-15"
     temp_req = requests.get(url_pag, headers=headers)
     temp_data = temp_req.json()
 
@@ -89,5 +89,5 @@ complete_data = {
 }
 
 json_indent = json.dumps(complete_data, indent=2)
-with open("cobrancas_usuarios_3.json", "w") as outfile:
+with open("cobrancas_usuarios.json", "w") as outfile:
     outfile.write(json_indent)
