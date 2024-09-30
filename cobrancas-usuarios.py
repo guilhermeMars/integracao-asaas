@@ -1,9 +1,8 @@
 import requests
 import json
 
-url_cobranca = "https://api.asaas.com/v3/payments?limit=100"
+url_cobranca = "https://api.asaas.com/v3/payments"
 url_usuarios = "https://api.asaas.com/v3/customers"
-
 
 token_ebramev = "#"
 
