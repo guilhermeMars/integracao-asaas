@@ -1,5 +1,5 @@
 import requests
-import json
+import pandas as pd
 
 url_cobranca = "https://api.asaas.com/v3/payments"
 url_usuarios = "https://api.asaas.com/v3/customers"
@@ -47,10 +47,9 @@ while True :
     if temp_data['hasMore'] == False:
         break
 
-    cobranca_data.append(cobrancas_filtred)
+    cobranca_data.extend(cobrancas_filtred)
 
     pag+= limit
-    print(f"Rodou {pag}")
 
 usuarios_data = []
 
@@ -77,16 +76,17 @@ while True :
     if temp_data['hasMore'] == False:
         break
 
-    usuarios_data.append(usuarios_filtred)
+    usuarios_data.extend(usuarios_filtred)
 
     pag+= limit
-    print(f"Rodou {pag}")
 
-complete_data = {
-    "Cobrancas": cobranca_data,
-    "Usuarios": usuarios_data
-}
+df_cobrancas = pd.DataFrame(cobranca_data)
+df_usuarios = pd.DataFrame(usuarios_data)
 
-json_indent = json.dumps(complete_data, indent=2)
-with open("cobrancas_usuarios.json", "w") as outfile:
-    outfile.write(json_indent)
+# Exibindo os dados no Power BI
+df_cobrancas
+df_usuarios
+
+# json_indent = json.dumps(cobranca_data, indent=2)
+# with open("cobrancas.json", "w") as outfile:
+#     outfile.write(json_indent)
