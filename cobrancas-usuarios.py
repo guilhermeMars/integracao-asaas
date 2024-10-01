@@ -1,6 +1,7 @@
 import requests
 import pandas as pd
 
+# Endpoints utilizados utilizadas
 url_cobranca = "https://api.asaas.com/v3/payments"
 url_usuarios = "https://api.asaas.com/v3/customers"
 
@@ -15,12 +16,15 @@ cobranca_data = []
 
 pag = 0
 limit = 10
+
+# Paginação
 while True :
 
     url_pag = f"{url_cobranca}?offset={pag}?limit={limit}&dateCreated[ge]=2022-06-15"
     temp_req = requests.get(url_pag, headers=headers)
     temp_data = temp_req.json()
 
+    # Campos salvos na requisição
     cobrancas_filtred = [
         {
             "Identificador": item["id"],
@@ -44,6 +48,7 @@ while True :
         } for item in temp_data['data']
     ]
 
+    # Finaliza quando acabar as páginas
     if temp_data['hasMore'] == False:
         break
 
@@ -51,10 +56,13 @@ while True :
 
     pag+= limit
 
+# Lógica duplicada para usuários. Poderia ser feito via função 
+
 usuarios_data = []
 
 pag = 0
 limit = 10
+
 while True :
 
     url_pag = f"{url_usuarios}?offset={pag}?limit={limit}"
@@ -86,6 +94,8 @@ df_usuarios = pd.DataFrame(usuarios_data)
 # Exibindo os dados no Power BI
 df_cobrancas
 df_usuarios
+
+# # Caso quiera salvar os dados em JSON
 
 # json_indent = json.dumps(cobranca_data, indent=2)
 # with open("cobrancas.json", "w") as outfile:
