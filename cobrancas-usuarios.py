@@ -21,7 +21,7 @@ limit = 10
 # Paginação
 while True :
 
-    url_pag = f"{url_cobranca}?offset={pag}?limit={limit}&dateCreated[ge]=2022-06-15"
+    url_pag = f"{url_cobranca}?offset={pag}&limit={limit}&dateCreated[ge]=2022-06-15"
     temp_req = requests.get(url_pag, headers=headers)
     temp_data = temp_req.json()
 
@@ -66,7 +66,7 @@ limit = 10
 
 while True :
 
-    url_pag = f"{url_usuarios}?offset={pag}?limit={limit}"
+    url_pag = f"{url_usuarios}?offset={pag}&limit={limit}"
     temp_req = requests.get(url_pag, headers=headers)
     temp_data = temp_req.json()
 
